@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recursero 2026 — Deshoras Sur</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&family=Nunito+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --verde:    #416e3d;
+  --verde-m:  #6d9c50;
+  --verde-c:  #a0ba5d;
+  --verde-bg: #eef4e5;
+  --amarillo: #fde17c;
+  --naranja:  #eda941;
+  --blanco:   #ffffff;
+  --ink:      #1f2e1e;
+  --muted:    #5a7057;
+  --border:   #c8ddb8;
+  --surface:  #f7fbf2;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Nunito Sans',sans-serif;
+  background:var(--verde-bg);
+  color:var(--ink);
+  min-height:100vh;
+}
+
+/* ── HERO ── */
+.hero{
+  background:var(--verde);
+  padding:36px 20px 48px;
+  position:relative;
+  overflow:hidden;
+  text-align:center;
+}
+.hero::after{
+  content:'';
+  position:absolute;
+  bottom:-2px;left:0;right:0;
+  height:40px;
+  background:var(--verde-bg);
+  border-radius:50% 50% 0 0 / 100% 100% 0 0;
+}
+.hero-logo{
+  display:inline-flex;align-items:center;gap:10px;
+  margin-bottom:20px;
+}
+.hero-heart{
+  width:40px;height:40px;border-radius:50%;
+  background:var(--amarillo);
+  display:flex;align-items:center;justify-content:center;
+  font-size:20px;
+}
+.hero-brand{
+  font-family:'Nunito',sans-serif;
+  font-weight:900;font-size:20px;color:#fff;
+}
+.hero-brand span{color:var(--amarillo);}
+.hero-title{
+  font-family:'Nunito',sans-serif;
+  font-weight:900;font-size:30px;
+  color:var(--amarillo);
+  letter-spacing:-0.5px;
+  line-height:1.1;
+  margin-bottom:8px;
+}
+.hero-sub{font-size:13px;color:rgba(255,255,255,0.65);line-height:1.5;}
+
+/* ── NAV TABS ── */
+.tabs{
+  display:flex;gap:8px;
+  padding:20px 16px 8px;
+  overflow-x:auto;
+  scrollbar-width:none;
+  position:sticky;top:0;
+  background:var(--verde-bg);
+  z-index:50;
+  border-bottom:2px solid var(--border);
+}
+.tabs::-webkit-scrollbar{display:none;}
+.tab{
+  flex-shrink:0;
+  padding:8px 16px;
+  border-radius:20px;
+  border:2px solid var(--border);
+  background:var(--blanco);
+  font-family:'Nunito',sans-serif;
+  font-weight:800;font-size:13px;
+  color:var(--muted);
+  cursor:pointer;
+  transition:all 0.2s;
+  white-space:nowrap;
+}
+.tab.active{background:var(--verde);color:#fff;border-color:var(--verde);}
+.tab:active{transform:scale(0.96);}
+
+/* ── CONTENT ── */
+.content{padding:20px 16px 60px;}
+
+.section{display:none;}
+.section.active{display:block;animation:fadeIn 0.25s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── DAY CARDS ── */
+.day-block{margin-bottom:14px;}
+.day-label{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:'Nunito',sans-serif;
+  font-weight:900;font-size:16px;
+  color:var(--verde);
+  margin-bottom:10px;
+  padding-bottom:6px;
+  border-bottom:3px solid var(--amarillo);
+}
+.meal-card{
+  background:var(--blanco);
+  border:1.5px solid var(--border);
+  border-radius:14px;
+  padding:13px 15px;
+  margin-bottom:8px;
+  position:relative;
+  overflow:hidden;
+}
+.meal-card::before{
+  content:'';
+  position:absolute;
+  left:0;top:0;bottom:0;
+  width:4px;
+  background:var(--verde-m);
+}
+.meal-type{
+  font-family:'Nunito',sans-serif;
+  font-weight:800;font-size:11px;
+  text-transform:uppercase;letter-spacing:0.8px;
+  color:var(--verde);margin-bottom:5px;
+}
+.meal-orgs{display:flex;flex-direction:column;gap:5px;}
+.org-row{
+  display:flex;align-items:flex-start;gap:8px;
+}
+.org-icon{font-size:13px;flex-shrink:0;margin-top:1px;}
+.org-info{}
+.org-name{font-weight:700;font-size:14px;color:var(--ink);}
+.org-detail{font-size:12px;color:var(--muted);line-height:1.4;margin-top:1px;}
+.org-time{
+  display:inline-block;
+  background:var(--verde-bg);
+  color:var(--verde);
+  font-family:'Nunito',sans-serif;
+  font-weight:800;font-size:11px;
+  padding:2px 8px;border-radius:6px;
+  margin-top:3px;
+}
+.badge-special{
+  display:inline-block;
+  background:var(--naranja);
+  color:#fff;
+  font-family:'Nunito',sans-serif;
+  font-weight:800;font-size:10px;
+  padding:2px 7px;border-radius:6px;
+  margin-left:4px;vertical-align:middle;
+}
+
+/* Color por tipo */
+.meal-card.desayuno::before{background:#8dd0f3;}
+.meal-card.almuerzo::before{background:var(--verde-m);}
+.meal-card.merienda::before{background:var(--naranja);}
+.meal-card.cena::before{background:#416e3d;}
+.meal-card.multi::before{background:var(--verde-c);}
+.meal-card.especial::before{background:var(--amarillo);}
+
+/* ── DUCHAS / SERVICIOS ── */
+.service-card{
+  background:var(--blanco);
+  border:1.5px solid var(--border);
+  border-radius:14px;
+  padding:15px;
+  margin-bottom:10px;
+}
+.service-header{
+  display:flex;align-items:center;gap:10px;margin-bottom:10px;
+}
+.service-icon-wrap{
+  width:42px;height:42px;border-radius:12px;
+  background:var(--verde-bg);
+  display:flex;align-items:center;justify-content:center;
+  font-size:20px;flex-shrink:0;
+}
+.service-title{font-family:'Nunito',sans-serif;font-weight:800;font-size:15px;color:var(--verde);}
+.service-sub{font-size:12px;color:var(--muted);}
+.service-days{display:flex;flex-direction:column;gap:6px;}
+.service-row{
+  display:flex;gap:10px;align-items:flex-start;
+  padding:8px 10px;
+  background:var(--surface);
+  border-radius:10px;
+}
+.service-day{
+  font-family:'Nunito',sans-serif;font-weight:800;
+  font-size:12px;color:var(--verde);
+  min-width:70px;flex-shrink:0;
+  padding-top:1px;
+}
+.service-desc{font-size:13px;color:var(--ink);line-height:1.4;}
+.alert-box{
+  background:#fff8e1;
+  border:1.5px solid var(--amarillo);
+  border-radius:10px;
+  padding:10px 12px;
+  font-size:12px;color:#7a5c00;
+  margin-top:8px;line-height:1.5;
+}
+.alert-box strong{color:#5a4000;}
+
+/* ── FOOTER ── */
+.footer{
+  text-align:center;
+  padding:20px;
+  font-size:12px;color:var(--muted);
+  border-top:1px solid var(--border);
+}
+.footer a{color:var(--verde);font-weight:700;text-decoration:none;}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-logo">
+    <div class="hero-heart">💚</div>
+    <div class="hero-brand">Deshoras <span>Sur</span></div>
+  </div>
+  <div class="hero-title">Recursero 2026</div>
+  <div class="hero-sub">Asistencia alimentaria y servicios<br>en Lomas de Zamora y alrededores</div>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+  <div class="tab active" onclick="showSection('alimentaria',this)">🍽 Alimentaria</div>
+  <div class="tab" onclick="showSection('duchas',this)">🚿 Duchas</div>
+  <div class="tab" onclick="showSection('servicios',this)">🏠 Servicios</div>
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+
+  <!-- ══ ASISTENCIA ALIMENTARIA ══ -->
+  <div class="section active" id="alimentaria">
+
+    <!-- LUNES -->
+    <div class="day-block">
+      <div class="day-label">📅 Lunes</div>
+      <div class="meal-card multi">
+        <div class="meal-type">Desayuno · Almuerzo · Merienda</div>
+        <div class="meal-orgs">
+          <div class="org-row">
+            <div class="org-icon">🤝</div>
+            <div class="org-info">
+              <div class="org-name">Codo a Codo</div>
+              <div class="org-detail">La Plata 38, Banfield Este</div>
+              <div class="org-time">9 a 17h</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="meal-card merienda">
+        <div class="meal-type">Merienda</div>
+        <div class="meal-orgs">
+          <div class="org-row">
+            <div class="org-icon">🚌</div>
+            <div class="org-info">
+              <div class="org-name">Trailer Provincial PSC</div>
+              <div class="org-detail">Estación Lomas, calle República de Líbano</div>
+              <div class="org-time">16 a 20h</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="meal-card cena">
+        <div class="meal-type">Cena</div>
+        <div class="meal-orgs">
+          <div class="org-row">
+            <div class="org-icon">🫕</div>
+            <div class="org-info">
+              <div class="org-name">Ollas que Laten</div>
+              <div class="org-detail">Barrera de Lomas</div>
+              <div class="org-time">19:30h</div>
+            </div>
+          </div>
+          <div class="org-row">
+            <div class="org-icon">🍔</div>
+            <div class="org-info">
+              <div class="org-name">Plaza Cerrito</div>
+              <div class="org-detail">Parrilla — entrega hamburguesas</div>
+              <div class="org-time">19:30h</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MARTES -->
+    <div class="day-block">
+      <div class="day-label">📅 Martes</div>
+      <div class="meal-card multi">
+        <div class="meal-type">Desayuno · Almuerzo · Merienda</div>
+        <div class="meal-orgs">
+          <div class="org-row">
+            <div class="org-icon">🤝</div>
+            <div class="org-info">
+              <div class="org-name">Codo a Codo</div>
+              <div class="org-detail">La Plata 38, Banfield Este</div>
+              <div class="org-time">9 a 17h</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="meal-card merienda">
+        <div class="meal-type">Merienda</div>
+        <div class="meal-orgs">
+          <div class="org-row">
+            <div class="org-icon">🚌</div>
+            <div class="org-info">
+              <div class="org-name">Trailer Provincial PSC</div>
+              <div class="org-detail">Estación Lomas, calle República de Líbano</div>
+              <div class="org-time">16 a 20h</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="meal-card cena">
+        <div class="meal-type">Cena</div>
+        <div class="meal-orgs">
+          <div class="org-row">
+            <div class="org-icon">🍊</div>
+            <div class="org-info">
+              <div class="org-name">Mandarines</div>
+              <div class="org-detail">Barrera, Gandulfo y Lomas Centro</div>
+              <div class="org-time">20:30h</div>
+            </div>
+          </div>
+          <div class="org-row">
+            <div class="org-icon">🏕</div>
+            <div class="org-info">
+              <div class="org-name">Tinku</div>
+              <div class="org-detail">Plaza de los Cañones, Temperley</div>
+              <div class="org-time">20:30h</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MIÉRCOLES -->
+    <div class="day-block">
+      <div class="day-label">📅 Miércoles</div>
+      <div class="meal-card multi">
+        <div class="meal-type">Desayuno · Almuerzo · Merienda</div>
+        <div class="meal-orgs">
+          <div class="org-row">
+            <div class="org-icon">🤝</div>
+            <div class="org-info">
+              <div class="org-name">Codo a Codo</div>
+              <div class="org-detail">La Plata 38, Banfield Este</div>
+              <div class="org-time">9 a 17h</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="meal-card almuerzo">
+        <div class="meal-type">Almuerzo</div>
+        <div class="meal-orgs">
+          <div class="org-row">
+            <div class="org-icon">🏥</div>
+            <div class="org-info">
+              <div class="org-name">Hastina Pura</div>
+              <div class="org-detail">Hospital Gandulfo, sobre Piedras</div>
+              <div class="org-time">13h</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="meal-card merienda">
+        <div class="meal-type">Merienda</div>
+        <div class="meal-orgs">
+          <div class="org-row">
+            <div class="org-icon">🚌</div>
+            <div class="org-info">
+              <div class="org-name">Trailer Provincial PSC</div>
+              <div class="org-detail">Estación Lomas, calle República de Líbano</div>
+              <div class="org-time">16 a 20h</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="meal-card cena">
+        <div class="meal-type">Cena</div>
+        <div class="meal-orgs">
+          <div class="org-row">
+            <div class="org-icon">⛪</div>
+            <div class="org-info">
+              <div class="org-name">Iglesia Cristiana</div>
+              <div class="org-detail">Barrera de Lomas</div>
+              <div class="org-time">20:30h</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- JUEVES -->
+    <div class="day-block">
+      <div class="day-label">📅 Jueves</div>
+      <div class="meal-card multi">
+        <div class="meal-type">Desayuno · Almuerzo · Merienda</div>
+        <div class="meal-orgs">
+          <div class="org-row">
+            <div class="org-icon">🤝</div>
+            <div class="org-info">
+              <div class="org-name">Codo a Codo</div>
+              <div class="org-detail">La Plata 38, Banfield Este</div>
+              <div class="org-time">9 a 17h</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="meal-card merienda">
+        <div class="meal-type">Merienda</div>
+        <div class="meal-orgs">
+          <div class="org-row">
+            <div class="org-icon">🚌</div>
+            <div class="org-info">
+              <div class="org-name">Trailer Provincial PSC</div>
+              <div class="org-detail">Estación Lomas, calle República de Líbano</div>
+              <div class="org-time">16 a 20h</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="meal-card cena">
+        <div class="meal-type">Cena</div>
+        <div class="meal-orgs">
+          <div class="org-row">
+            <div class="org-icon">💚</div>
+            <div class="org-info">
+              <div class="org-name">Deshoras Sur</div>
+              <div class="org-detail">Barrera, Gandulfo y Peatonal Laprida</div>
+              <div class="org-time">19:30h</div>
+            </div>
+          </div>
+          <div class="org-row">
+            <div class="org-icon">⛪</div>
+            <div class="org-info">
+              <div class="org-name">Iglesia</div>
+              <div class="org-detail">Barrera de Lomas</div>
+              <div class="org-time">19:30h</div>
+            </div>
+          </div>
+          <div class="org-row">
+            <div class="org-icon">🏛</div>
+            <div class="org-info">
+              <div class="org-name">Fundación Sí</div>
+              <div class="org-detail">Lomas Centro <span class="badge-special">No entrega viandas</span></div>
+              <div class="org-time">19:30h</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIERNES -->
+    <div class="day-block">
+      <div class="day-label">📅 Viernes</div>
+      <div class="meal-card multi">
+        <div class="meal-type">Desayuno · Almuerzo · Merienda</div>
+        <div class="meal-orgs">
+          <div class="org-row">
+            <div class="org-icon">🤝</div>
+            <div class="org-info">
+              <div class="org-name">Codo a Codo</div>
+              <div class="org-detail">La Plata 38, Banfield Este</div>
+              <div class="org-time">9 a 17h</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="meal-card merienda">
+        <div class="meal-type">Merienda</div>
+        <div class="meal-orgs">
+          <div class="org-row">
+            <div class="org-icon">🚌</div>
+            <div class="org-info">
+              <div class="org-name">Trailer Provincial PSC</div>
+              <div class="org-detail">Estación Lomas, calle República de Líbano</div>
+              <div class="org-time">16 a 20h</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="meal-card cena">
+        <div class="meal-type">Cena</div>
+        <div class="meal-orgs">
+          <div class="org-row">
+            <div class="org-icon">🏳</div>
+            <div class="org-info">
+              <div class="org-name">Patria Grande</div>
+              <div class="org-detail">Plaza Grigera, Laprida y Temperley (COTO)</div>
+              <div class="org-time">20:30h</div>
+            </div>
+          </div>
+          <div class="org-row">
+            <div class="org-icon">🚑</div>
+            <div class="org-info">
+              <div class="org-name">Cruz Roja</div>
+              <div class="org-detail">McDonalds de Laprida <span class="badge-special">Cada 15 días</span></div>
+              <div class="org-time">20h</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SÁBADOS -->
+    <div class="day-block">
+      <div class="day-label">📅 Sábados</div>
+      <div class="meal-card especial">
+        <div class="meal-type">Merienda y Cena</div>
+        <div class="meal-orgs">
+          <div class="org-row">
+            <div class="org-icon">⛪</div>
+            <div class="org-info">
+              <div class="org-name">Iglesia Ntra. Sra. del Rosario</div>
+              <div class="org-detail">Sta. María de Oro 599, Temperley</div>
+              <div class="org-time">Merienda 18h · Cena 20h</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="meal-card cena">
+        <div class="meal-type">Cena</div>
+        <div class="meal-orgs">
+          <div class="org-row">
+            <div class="org-icon">⛰</div>
+            <div class="org-info">
+              <div class="org-name">Organización Aconcagua</div>
+              <div class="org-detail">Lomas Centro, Gandulfo, Banfield, Temperley</div>
+              <div class="org-time">20:30h</div>
+            </div>
+          </div>
+          <div class="org-row">
+            <div class="org-icon">🙏</div>
+            <div class="org-info">
+              <div class="org-name">Encuentro con Dios</div>
+              <div class="org-detail">Fonrouge y las vías</div>
+              <div class="org-time">20h</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DOMINGOS -->
+    <div class="day-block">
+      <div class="day-label">📅 Domingos</div>
+      <div class="meal-card desayuno">
+        <div class="meal-type">Desayuno / Almuerzo</div>
+        <div class="meal-orgs">
+          <div class="org-row">
+            <div class="org-icon">⛪</div>
+            <div class="org-info">
+              <div class="org-name">Iglesia Transmitiendo Vida</div>
+              <div class="org-detail">Avellaneda 8, Temperley</div>
+              <div class="org-time">Desde 8h</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="meal-card merienda">
+        <div class="meal-type">Merienda</div>
+        <div class="meal-orgs">
+          <div class="org-row">
+            <div class="org-icon">🌳</div>
+            <div class="org-info">
+              <div class="org-name">Plaza Cerrito</div>
+              <div class="org-detail">Sabri, Jona, Damián</div>
+              <div class="org-time">17h</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="meal-card cena">
+        <div class="meal-type">Cena</div>
+        <div class="meal-orgs">
+          <div class="org-row">
+            <div class="org-icon">➕</div>
+            <div class="org-info">
+              <div class="org-name">Proyecto Más</div>
+              <div class="org-detail">Barrera, Lomas de Zamora</div>
+              <div class="org-time">21h</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /alimentaria -->
+
+  <!-- ══ DUCHAS ══ -->
+  <div class="section" id="duchas">
+
+    <div class="service-card">
+      <div class="service-header">
+        <div class="service-icon-wrap">🚿</div>
+        <div>
+          <div class="service-title">Duchas disponibles</div>
+          <div class="service-sub">Acceso por día y lugar</div>
+        </div>
+      </div>
+      <div class="service-days">
+        <div class="service-row">
+          <div class="service-day">Lun a Vie</div>
+          <div class="service-desc"><strong>Codo a Codo</strong> — La Plata 38, Banfield<br>Llegar temprano (hay 1 sola ducha)</div>
+        </div>
+        <div class="service-row">
+          <div class="service-day">Mié y Jue</div>
+          <div class="service-desc"><strong>Hogar Tinku</strong> — Mercedes 607, Llavaloll</div>
+        </div>
+        <div class="service-row">
+          <div class="service-day">Sábado</div>
+          <div class="service-desc"><strong>Catedral Lomas de Zamora</strong> — desde 8h<br>Anotarse primero en la catedral. A las 9h se trasladan juntos a <strong>Rivera 279</strong></div>
+        </div>
+      </div>
+      <div class="alert-box">
+        🧺 <strong>Lavado de ropa:</strong> disponible en Codo a Codo los días <strong>lunes, miércoles y jueves</strong>
+      </div>
+    </div>
+
+  </div><!-- /duchas -->
+
+  <!-- ══ SERVICIOS ══ -->
+  <div class="section" id="servicios">
+
+    <div class="service-card">
+      <div class="service-header">
+        <div class="service-icon-wrap">🏫</div>
+        <div>
+          <div class="service-title">Centro Barrial Codo a Codo</div>
+          <div class="service-sub">La Plata 38, Banfield Este · Lun a Vie 9 a 17h</div>
+        </div>
+      </div>
+      <div class="service-days">
+        <div class="service-row">
+          <div class="service-day">Lunes</div>
+          <div class="service-desc">Cine debate · Taller de cocina · Escuela primaria (adultos)</div>
+        </div>
+        <div class="service-row">
+          <div class="service-day">Martes</div>
+          <div class="service-desc">Espacio de grupalidad · Trabajadora social · FinEs · Escuela primaria (adultos)</div>
+        </div>
+        <div class="service-row">
+          <div class="service-day">Miércoles</div>
+          <div class="service-desc">Psicóloga · FinEs · Escuela primaria (adultos)</div>
+        </div>
+        <div class="service-row">
+          <div class="service-day">Jueves</div>
+          <div class="service-desc">Trabajadora social · Psicóloga · Espacio de grupalidad · Escuela primaria (adultos)</div>
+        </div>
+        <div class="service-row">
+          <div class="service-day">Viernes</div>
+          <div class="service-desc">Taller de manualidades · Taller de peluquería · FinEs · Escuela primaria (adultos)</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="service-card">
+      <div class="service-header">
+        <div class="service-icon-wrap">🏛</div>
+        <div>
+          <div class="service-title">Dirección de Organización Comunitaria</div>
+          <div class="service-sub">Personas en situación de calle con domicilio legal en Lomas</div>
+        </div>
+      </div>
+      <div class="service-days">
+        <div class="service-row">
+          <div class="service-day">Lun a Vie</div>
+          <div class="service-desc"><strong>Frías 1115</strong>, Parque de Lomas (Desarrollo Social)<br>9 a 14h</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /servicios -->
+
+</div><!-- /content -->
+
+<div class="footer">
+  Deshoras Sur · <a href="https://ongdeshorassur.wixsite.com/deshoras-sur">ongdeshorassur.wixsite.com</a><br>
+  Actualizado 2026
+</div>
+
+<script>
+function showSection(id, el) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  el.classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+</script>
+</body>
+</html>

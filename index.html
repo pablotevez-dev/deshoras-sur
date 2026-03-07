@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deshoras Sur — Links</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Nunito+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --verde:   #416e3d;
+  --amarillo:#fde17c;
+  --naranja: #eda941;
+  --bg:      #eef4e5;
+  --blanco:  #ffffff;
+  --ink:     #1f2e1e;
+  --muted:   #5a7057;
+  --border:  #c8ddb8;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:'Nunito Sans',sans-serif;
+  background:var(--bg);min-height:100vh;
+  display:flex;flex-direction:column;align-items:center;
+  padding:0 0 60px;
+}
+.bg-top{
+  width:100%;height:220px;background:var(--verde);
+  position:relative;flex-shrink:0;overflow:hidden;
+}
+.bg-top::before{
+  content:'';position:absolute;width:300px;height:300px;border-radius:50%;
+  background:rgba(255,255,255,0.04);top:-100px;right:-80px;
+}
+.bg-top::after{
+  content:'';position:absolute;bottom:-30px;left:0;right:0;height:60px;
+  background:var(--bg);border-radius:50% 50% 0 0/100% 100% 0 0;
+}
+.avatar-wrap{
+  margin-top:-60px;position:relative;z-index:2;
+  display:flex;flex-direction:column;align-items:center;gap:12px;
+}
+.avatar{
+  width:90px;height:90px;border-radius:50%;
+  background:var(--amarillo);border:4px solid var(--blanco);
+  display:flex;align-items:center;justify-content:center;
+  font-size:42px;box-shadow:0 4px 20px rgba(65,110,61,0.25);
+}
+.org-name{font-family:'Nunito',sans-serif;font-weight:900;font-size:22px;color:var(--ink);letter-spacing:-0.5px;}
+.org-name span{color:var(--verde);}
+.org-desc{font-size:13px;color:var(--muted);text-align:center;line-height:1.5;max-width:280px;}
+.links{width:100%;max-width:420px;padding:28px 20px 0;display:flex;flex-direction:column;gap:12px;}
+.link-card{
+  display:flex;align-items:center;gap:14px;
+  background:var(--blanco);border:2px solid var(--border);border-radius:16px;
+  padding:16px 18px;text-decoration:none;color:var(--ink);
+  transition:all 0.2s;position:relative;overflow:hidden;
+}
+.link-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:5px;}
+.link-card.green::before  {background:var(--verde);}
+.link-card.yellow::before {background:var(--naranja);}
+.link-card.insta::before  {background:linear-gradient(180deg,#f58529,#dd2a7b,#8134af);}
+.link-card.wts::before    {background:#25d366;}
+.link-card.web::before    {background:#5dc1ef;}
+.link-card:active{transform:scale(0.98);background:#f5faf0;}
+.link-icon{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+.link-card.green  .link-icon{background:#eef4e5;}
+.link-card.yellow .link-icon{background:#fff8e1;}
+.link-card.insta  .link-icon{background:#fdf0f8;}
+.link-card.wts    .link-icon{background:#e8fdf0;}
+.link-card.web    .link-icon{background:#e8f6fd;}
+.link-text{flex:1;}
+.link-title{font-family:'Nunito',sans-serif;font-weight:800;font-size:15px;margin-bottom:2px;}
+.link-sub{font-size:12px;color:var(--muted);line-height:1.3;}
+.link-arrow{font-size:18px;color:var(--muted);flex-shrink:0;}
+.divider{width:100%;max-width:420px;padding:4px 20px 0;display:flex;align-items:center;gap:10px;}
+.divider-line{flex:1;height:1px;background:var(--border);}
+.divider-text{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:0.8px;}
+.footer-note{margin-top:32px;font-size:11px;color:var(--muted);text-align:center;line-height:1.7;}
+.footer-note a{color:var(--verde);text-decoration:none;font-weight:700;}
+</style>
+</head>
+<body>
+
+<div class="bg-top"></div>
+
+<div class="avatar-wrap">
+  <div class="avatar">💚</div>
+  <div class="org-name">Deshoras <span>Sur</span></div>
+  <div class="org-desc">ONG de jóvenes comprometidos con la<br>igualdad de oportunidades · Lomas de Zamora</div>
+</div>
+
+<div class="links">
+
+  <a class="link-card green" href="https://pablotevez-dev.github.io/deshoras-sur/recursero.html">
+    <div class="link-icon">🗺</div>
+    <div class="link-text">
+      <div class="link-title">Recursero 2026</div>
+      <div class="link-sub">Asistencia alimentaria, duchas y servicios por día</div>
+    </div>
+    <div class="link-arrow">→</div>
+  </a>
+
+  <a class="link-card yellow" href="https://script.google.com/macros/s/AKfycbw5unRCNDlsAo80b6Uu00ZIAt6pIioIq8Sfuq_uA8g7BlFuSVgJ6Ka5_hBzNwnbLnTz/exec">
+    <div class="link-icon">👕</div>
+    <div class="link-text">
+      <div class="link-title">Pedidos de Ropa</div>
+      <div class="link-sub">Cargá solicitudes de Barrera y Laprida</div>
+    </div>
+    <div class="link-arrow">→</div>
+  </a>
+
+  <div class="divider">
+    <div class="divider-line"></div>
+    <div class="divider-text">Encontranos en</div>
+    <div class="divider-line"></div>
+  </div>
+
+  <a class="link-card insta" href="https://www.instagram.com/deshorassur?igsh=OWt1OG94MDU1Znk1" target="_blank">
+    <div class="link-icon">📸</div>
+    <div class="link-text">
+      <div class="link-title">Instagram</div>
+      <div class="link-sub">@deshorassur</div>
+    </div>
+    <div class="link-arrow">→</div>
+  </a>
+
+  <a class="link-card wts" href="https://wa.me/5491170678158" target="_blank">
+    <div class="link-icon">💬</div>
+    <div class="link-text">
+      <div class="link-title">WhatsApp</div>
+      <div class="link-sub">+54 9 11 7067-8158</div>
+    </div>
+    <div class="link-arrow">→</div>
+  </a>
+
+  <a class="link-card web" href="https://ongdeshorassur.wixsite.com/deshoras-sur" target="_blank">
+    <div class="link-icon">🌐</div>
+    <div class="link-text">
+      <div class="link-title">Sitio web</div>
+      <div class="link-sub">ongdeshorassur.wixsite.com</div>
+    </div>
+    <div class="link-arrow">→</div>
+  </a>
+
+</div>
+
+<p class="footer-note">
+  ongdeshorassur@gmail.com<br>
+  © 2026 <a href="https://ongdeshorassur.wixsite.com/deshoras-sur">Deshoras Sur</a>
+</p>
+
+</body>
+</html>
