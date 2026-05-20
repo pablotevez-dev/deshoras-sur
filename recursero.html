@@ -68,8 +68,17 @@ body{font-family:'Nunito Sans',sans-serif;background:var(--verde-bg);color:var(-
 .service-desc{font-size:13px;color:var(--ink);line-height:1.4;}
 .alert-box{background:#fff8e1;border:1.5px solid var(--amarillo);border-radius:10px;padding:10px 12px;font-size:12px;color:#7a5c00;margin-top:8px;line-height:1.5;}
 .alert-box strong{color:#5a4000;}
-.footer{text-align:center;padding:20px;font-size:12px;color:var(--muted);border-top:1px solid var(--border);}
-.footer a{color:var(--verde);font-weight:700;text-decoration:none;}
+/* ── FOOTER: volver a Botonera ── */
+.back-to-botonera{text-align:center;padding:32px 20px 24px;}
+.back-to-botonera a{
+  display:inline-flex;align-items:center;gap:7px;
+  background:var(--blanco);color:var(--verde);
+  border:1.5px solid var(--border);padding:11px 18px;
+  border-radius:12px;text-decoration:none;
+  font-family:'Nunito',sans-serif;font-weight:800;font-size:13px;
+  transition:all 0.15s;
+}
+.back-to-botonera a:active{background:var(--verde-bg);border-color:var(--verde-m);}
 </style>
 </head>
 <body>
@@ -511,10 +520,9 @@ body{font-family:'Nunito Sans',sans-serif;background:var(--verde-bg);color:var(-
 
 </div>
 
-<div class="footer">
-  Deshoras Sur · <a href="https://ongdeshorassur.wixsite.com/deshoras-sur">ongdeshorassur.wixsite.com</a><br>
-  Actualizado 2026
-</div>
+<footer class="back-to-botonera">
+  <a href="https://pablotevez-dev.github.io/deshoras-sur/" target="_blank" rel="noopener">← Volver a la Botonera</a>
+</footer>
 
 <script>
 function showSection(id, el) {
