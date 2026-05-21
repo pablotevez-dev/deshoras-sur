@@ -8,12 +8,14 @@
 
 ## ¿Qué hay en este repositorio?
 
+Esta carpeta `git/` contiene las páginas estáticas que GitHub Pages publica:
+
 | Archivo | Descripción | URL |
 |---|---|---|
-| `index.html` | Linktree — página principal con todos los accesos | `/deshoras-sur` |
+| `index.html` | Linktree — Botonera principal con todos los accesos | `/deshoras-sur` |
 | `recursero.html` | Recursero 2026 — asistencia alimentaria, duchas y servicios por día | `/deshoras-sur/recursero.html` |
 
-> El formulario de **Pedidos de Ropa** está hosteado por separado en Google Apps Script y se accede desde el linktree.
+Las herramientas que requieren backend (formularios, lectura/escritura en Google Sheets) viven en `../AppScrip/` y se publican como **web apps de Google Apps Script**. La Botonera linkea directo a sus URLs `/exec`.
 
 ---
 
@@ -25,11 +27,25 @@ Guía de recursos para personas en situación de calle en Lomas de Zamora y alre
 - Lugares y horarios de duchas
 - Servicios sociales y talleres (Centro Barrial Codo a Codo, Dirección de Organización Comunitaria)
 
-### 👕 Formulario de Pedidos de Ropa
-App web para que los voluntarios carguen solicitudes de ropa desde el celular. Los pedidos se guardan automáticamente en un Google Sheet. Permite cargar múltiples personas con sus ítems y talles, diferenciando entre sede Barrera y sede Laprida.
+### 📋 Relevamiento
+Formulario web para registrar a las personas que vemos en cada recorrida (nombre, DNI, hijos, ubicación, trabajo, asistencia social). Backend en Apps Script, datos en Google Sheet.
 
-### 🔗 Linktree
-Página central que concentra todos los accesos: Recursero, Pedidos de Ropa, Instagram, WhatsApp y sitio web institucional.
+### 👕 Registrar un pedido
+Formulario mobile-first para cargar pedidos de ropa. Flujo en 4 pasos: recorrido (*Barrera* / *Laprida*) → voluntario → personas con sus ítems → resumen. Cada ítem tiene una **cascada Categoría → Ítem** (las categorías y sus ítems se leen de hojas separadas en el Sheet, así se actualizan sin tocar código). Genera un texto listo para compartir por WhatsApp.
+
+### 📦 Tomar un pedido
+Misma URL del Apps Script de pedidos con `?page=entregas`. Dos solapas: **Pendientes** (toma de pedidos que nadie agarró todavía) y **Mis pedidos** (marca como entregado). Cada ítem del pedido se toma de forma independiente. Confirmación previa por modal para evitar tomas accidentales.
+
+### 🧺 Stock de Cocina
+Tablero que muestra qué alimentos y artículos de papelería hay que ir comprando, clasificados por urgencia (`Pedir urgente` / `Sin stock` / `Ir juntando` para alimentos).
+
+### 💡 Enviar una propuesta
+Link `mailto:` precargado a la Comisión Directiva (`comision.directiva@deshorassur.org.ar`) con asunto y cuerpo armados para que cualquier voluntario pueda proponer un proyecto.
+
+### 🔗 Botonera (linktree)
+Página central de acceso a todas las herramientas + enlaces a Instagram, WhatsApp y sitio web institucional.
+
+> **Patrón compartido**: todas las pantallas internas tienen un footer **"← Volver a la Botonera"** que lleva al linktree.
 
 ---
 
@@ -44,6 +60,20 @@ Si cambian horarios u organizaciones, editá directamente `recursero.html` desde
 5. Clic en **"Commit changes"**
 
 El sitio se actualiza solo en 1-2 minutos.
+
+---
+
+## Cómo actualizar las web apps de Apps Script
+
+Para Pedidos, Relevamiento o Cocina:
+
+1. Abrí el proyecto Apps Script desde [script.google.com](https://script.google.com) (o desde el Sheet asociado → **Extensiones → Apps Script**).
+2. Pegá el contenido actualizado en el `.gs` o `.html` correspondiente.
+3. **Deploy → Manage deployments → ✏️ → Version: `New version` → Deploy**.
+
+> ⚠️ Si dejás el dropdown en `Active` en vez de `New version`, la URL `/exec` sigue sirviendo la versión anterior aunque diga "Deployed". Es el error más común.
+
+La URL `/exec` no cambia con cada redeploy, así que los links de la Botonera se mantienen.
 
 ---
 
