@@ -30,11 +30,21 @@ Guía de recursos para personas en situación de calle en Lomas de Zamora y alre
 ### 📋 Relevamiento
 Formulario web para registrar a las personas que vemos en cada recorrida (nombre, DNI, hijos, ubicación, trabajo, asistencia social). Backend en Apps Script, datos en Google Sheet.
 
-### 👕 Registrar un pedido
+### 👕 Registrar pedido
 Formulario mobile-first para cargar pedidos de ropa. Flujo en 4 pasos: recorrido (*Barrera* / *Laprida*) → voluntario → personas con sus ítems → resumen. Cada ítem tiene una **cascada Categoría → Ítem** (las categorías y sus ítems se leen de hojas separadas en el Sheet, así se actualizan sin tocar código). Genera un texto listo para compartir por WhatsApp.
 
-### 📦 Tomar un pedido
-Misma URL del Apps Script de pedidos con `?page=entregas`. Dos solapas: **Pendientes** (toma de pedidos que nadie agarró todavía) y **Mis pedidos** (marca como entregado). Cada ítem del pedido se toma de forma independiente. Confirmación previa por modal para evitar tomas accidentales.
+### 📦 Gestionar pedido
+Misma URL del Apps Script de pedidos con `?page=entregas`. Tres solapas:
+- **Pendientes** — toma de pedidos que nadie agarró todavía.
+- **Mis pedidos** — marca como entregado lo que ya tomaste.
+- **❄️ Invierno** — inventario propio para la campaña de invierno (ver abajo).
+
+Cada ítem del pedido se toma de forma independiente. Confirmación previa por modal para evitar tomas accidentales.
+
+### ❄️ Campaña de Invierno
+Vive como tercera solapa dentro de "Tomar un pedido". Cada voluntario carga **cuántos artículos de invierno tiene guardados en su casa** (Manta, Frazada, Gorro, Bufanda, Guante, Cuellito). Los cambios se guardan solos con cada `+`/`−` (autosave con debounce). Al ver el total general en el Sheet se sabe con cuánto stock cuenta la ONG sin tener que preguntar uno por uno.
+
+La lista de artículos sale de la hoja `ArticuloInvierno` y los datos se guardan en `Campaña Invierno` (Voluntario · Articulo · Cantidad · Actualizado). Si la cantidad vuelve a 0, la fila se elimina sola para mantener la hoja limpia.
 
 ### 🧺 Stock de Cocina
 Tablero que muestra qué alimentos y artículos de papelería hay que ir comprando, clasificados por urgencia (`Pedir urgente` / `Sin stock` / `Ir juntando` para alimentos).
